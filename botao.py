@@ -16,17 +16,15 @@ class Botao():
         self.botao_frame_ampliado = pygame.transform.scale(self.botao_frame, (self.largura, self.altura))
         tela.blit(self.botao_frame_ampliado, (self.x, self.y))
         
-    def verificar_clique(self, event):
-        
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            self.mouse = pygame.mouse.get_pos()
-            rect = pygame.Rect(self.x, self.y, self.largura, self.altura)
-            if rect.collidepoint(self.mouse):
-                self.index += 0.50
-                if self.index > 4:
-                    self.index = 4
-                    self.valor = self.valor_do_botao
-                    
-        if event.type == pygame.MOUSEBUTTONUP:
+    def verificar_clique(self):
+        self.mouse_pressionado = pygame.mouse.get_pressed()
+        self.mouse_posicao = pygame.mouse.get_pos()
+        self.rect = pygame.Rect(self.x, self.y, self.largura, self.altura)
+
+        if self.mouse_pressionado[0] and self.rect.collidepoint(self.mouse_posicao):
+            self.index += 0.50
+            if self.index > 4:
+                self.valor = self.valor_do_botao
+        else:
             self.index = 0
             

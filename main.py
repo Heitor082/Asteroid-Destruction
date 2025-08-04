@@ -70,10 +70,10 @@ def tela_inicial():
     tela.blit(logo_imagem_redimensionada, (330, -70))
 
     botao_start.desenhar(tela)
-    botao_start.verificar_clique(event)
+    botao_start.verificar_clique()
 
     botao_quit.desenhar(tela)
-    botao_quit.verificar_clique(event)
+    botao_quit.verificar_clique()
         
 def tela_jogando():
     tela.fill((0,0,0))
@@ -93,6 +93,8 @@ def tela_jogando():
         terra_frame_index = 0
 
     jogador.desenhar(tela)
+    jogador.andar()
+    jogador.atirar()
 
 tela_atual = 0
 
@@ -104,27 +106,10 @@ while rodando:
         if event.type == pygame.QUIT:
             rodando = False
         
-    teclas = pygame.key.get_pressed()
-    if teclas[pygame.K_w]:
-        jogador.y -= jogador.velocidade
-    if teclas[pygame.K_s]:
-        jogador.y += jogador.velocidade
-    if teclas[pygame.K_a]:
-        jogador.x -= jogador.velocidade
-    if teclas[pygame.K_d]:
-        jogador.x += jogador.velocidade
-    if teclas[pygame.K_SPACE]:
-        jogador.index += 0.15
-        if jogador.index > 6:
-            jogador.index = 0
-    else:
-        jogador.index = 0
-
     if tela_atual == 0:
-        botao_start.verificar_clique(event)
+        tela_inicial()
         if botao_start.valor == 1:
             tela_atual = 1
-        tela_inicial()
         if botao_quit.valor == 1:
             rodando = False
             
